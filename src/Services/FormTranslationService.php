@@ -370,7 +370,7 @@ class FormTranslationService
 
         if (function_exists('PLL')) {
             $polylang = PLL();
-            if (is_object($polylang) && isset($polylang->curlang) && isset($polylang->model) && method_exists($polylang->model, 'get_language')) {
+            if (is_object($polylang) && isset($polylang->model)) {
                 $languageObject = $polylang->model->get_language($language);
                 if ($languageObject) {
                     $polylang->curlang = $languageObject;
