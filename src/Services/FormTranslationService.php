@@ -225,7 +225,7 @@ class FormTranslationService
             return $form;
         }
 
-        $language = $this->getCurrentPolylangLanguage();
+        $language = $this->getRuntimeLanguageFromRequest();
         $cacheKey = $language ?: 'current';
 
         if (isset(self::$translatedFormFieldsCache[$form->id][$cacheKey])) {
@@ -284,7 +284,11 @@ class FormTranslationService
             return $value;
         }
 
+        $language = $language ?: $this->getCurrentPolylangLanguage();
+
         if ($language && function_exists('pll_translate_string')) {
+            $this->loadStringTranslations($language);
+
             return pll_translate_string($value, $language);
         }
 
@@ -293,6 +297,24 @@ class FormTranslationService
         }
 
         return $value;
+    }
+
+    public function getRuntimeLanguageFromRequest()
+    {
+        return $this->extractLanguageFromRequest($_REQUEST) ?: $this->getCurrentPolylangLanguage();
+    }
+
+    public function loadStringTranslations($language)
+    {
+        if (!$language || !function_exists('PLL')) {
+            return;
+        }
+
+        $polylang = PLL();
+
+        if (is_object($polylang) && method_exists($polylang, 'load_strings_translations')) {
+            $polylang->load_strings_translations($language);
+        }
     }
 
     public function isPolylangActive()
