@@ -58,6 +58,15 @@ Carry the WPML double-opt-in fix forward: when a form object is stored in contex
 
 The helper script `scripts/complete-polylang-openspec-pr.sh` validates this change, blocks on unchecked OpenSpec tasks, creates an uppercase-prefixed commit without co-author trailers, opens a PR, and can merge it non-interactively. It intentionally refuses to publish if the OpenSpec checklist is not complete.
 
+## Class Structure
+
+The parent Contact Form 7 Polylang plugin keeps admin string registration separate from frontend string/message/submission translation. The Fluent Forms Polylang implementation follows the same maintainability boundary:
+
+- `FormSettingsController` owns admin AJAX actions, the form settings menu entry, enabled-form metadata, and form-update registration refreshes.
+- `RuntimeTranslationController` owns frontend/runtime hooks: rendered form strings, validation/messages, email/feed parsing, AJAX language restoration, double opt-in localization, entry confirmation, and PDF language filters.
+- `FormTranslationService` owns shared Polylang API access, form enablement, per-form string registration, recursive translation, form caches, and language extraction/switching helpers.
+- `SettingsController` remains a small bootstrap facade so the plugin entrypoint does not need to know every sub-controller.
+
 ## WPML Parity Notes
 
 The Polylang controller covers the top WPML runtime surfaces with native string APIs rather than WPML packages:

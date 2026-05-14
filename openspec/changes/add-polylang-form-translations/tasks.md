@@ -31,3 +31,9 @@
 - [x] 5.2 Add PDF and entry-confirmation language helpers where Polylang exposes equivalent APIs.
 - [x] 5.3 Verify activation with Fluent Forms active and Polylang active.
 - [x] 5.4 Compare top WPML routes/hooks against Polylang coverage and document any intentional gaps.
+
+## 6. Maintainability Follow-Up
+
+- [x] 6.1 Compare the parent Contact Form 7 Polylang plugin structure before refactoring.
+- [x] 6.2 Split the large form settings controller into admin settings, runtime translation, and shared form translation service classes.
+- [x] 6.3 Keep hook registrations and public behavior stable after the split.
