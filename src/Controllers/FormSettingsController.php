@@ -13,6 +13,7 @@ class FormSettingsController
 {
     private $app;
     private $translations;
+    private $settingsAssetsRegistered = false;
 
     public function __construct($app, FormTranslationService $translations)
     {
@@ -113,10 +114,29 @@ class FormSettingsController
 
     public function enqueueSettingsAssets()
     {
+        if ($this->settingsAssetsRegistered) {
+            return;
+        }
+
         $page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
         $route = isset($_GET['route']) ? sanitize_key(wp_unslash($_GET['route'])) : '';
 
         if ($page !== 'fluent_forms' || $route !== 'settings') {
+            return;
+        }
+
+        $scriptData = $this->getSettingsScriptData();
+        $scriptPath = MFFFPLL_DIR . 'assets/admin/ff-polylang-settings.js';
+
+        if (wp_script_is('fluentform_form_settings', 'registered') && is_readable($scriptPath)) {
+            wp_add_inline_script(
+                'fluentform_form_settings',
+                'window.MFFFPLLSettings = ' . wp_json_encode($scriptData) . ";\n" . file_get_contents($scriptPath),
+                'before'
+            );
+
+            $this->settingsAssetsRegistered = true;
+
             return;
         }
 
@@ -128,7 +148,14 @@ class FormSettingsController
             true
         );
 
-        wp_localize_script('mfffpll-form-settings', 'MFFFPLLSettings', [
+        wp_localize_script('mfffpll-form-settings', 'MFFFPLLSettings', $scriptData);
+
+        $this->settingsAssetsRegistered = true;
+    }
+
+    private function getSettingsScriptData()
+    {
+        return [
             'getAction'    => 'fluentform_get_polylang_settings',
             'storeAction'  => 'fluentform_store_polylang_settings',
             'deleteAction' => 'fluentform_delete_polylang_settings',
@@ -144,7 +171,7 @@ class FormSettingsController
                 'confirm'     => __('This will disable Polylang translation for this form. Continue?', 'multilingual-forms-fluent-forms-polylang'),
                 'cancel'      => __('Cancel', 'multilingual-forms-fluent-forms-polylang'),
             ],
-        ]);
+        ];
     }
 
     public function renderSettingsAppContainer($formId)
