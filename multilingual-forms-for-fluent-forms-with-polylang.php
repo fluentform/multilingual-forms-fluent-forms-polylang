@@ -65,6 +65,9 @@ class MultilingualFormsFluentFormsPolylang
     protected function includeFiles()
     {
         include_once MFFFPLL_DIR . 'src/Controllers/GlobalSettingsController.php';
+        include_once MFFFPLL_DIR . 'src/Services/FormTranslationService.php';
+        include_once MFFFPLL_DIR . 'src/Controllers/FormSettingsController.php';
+        include_once MFFFPLL_DIR . 'src/Controllers/RuntimeTranslationController.php';
         include_once MFFFPLL_DIR . 'src/Controllers/SettingsController.php';
     }
 
