@@ -1,0 +1,9 @@
+.DS_Store
+.babelrc
+.distignore
+.git
+.gitattributes
+.gitignore
+README.md
+.idea
+*.map
