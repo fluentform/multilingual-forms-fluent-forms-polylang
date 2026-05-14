@@ -200,6 +200,25 @@ class FormTranslationService
         }
     }
 
+    public function registerEnabledFormStrings()
+    {
+        if (!$this->canUsePolylangStrings() || !class_exists(FormMeta::class)) {
+            return;
+        }
+
+        $enabledForms = FormMeta::where('meta_key', self::FORM_META_KEY)
+            ->where('value', '1')
+            ->get();
+
+        foreach ($enabledForms as $enabledForm) {
+            $formId = absint(isset($enabledForm['form_id']) ? $enabledForm['form_id'] : null);
+
+            if ($formId) {
+                $this->registerFormStrings($formId);
+            }
+        }
+    }
+
     public function translateRenderingForm($form)
     {
         if (!is_object($form) || empty($form->id) || !$this->isFormEnabled($form->id)) {

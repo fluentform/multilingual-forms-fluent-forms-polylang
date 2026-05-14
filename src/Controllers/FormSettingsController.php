@@ -37,6 +37,7 @@ class FormSettingsController
         add_action('fluentform/after_form_delete', [$this, 'removePolylangStrings'], 10, 1);
         add_action('fluentform/loading_settings_assets', [$this, 'enqueueSettingsAssets'], 10, 1);
         add_action('admin_enqueue_scripts', [$this, 'enqueueSettingsAssets'], 99);
+        add_action('admin_init', [$this, 'registerEnabledFormStringsForPolylang'], 20);
         add_action('fluentform/form_settings_container_', [$this, 'renderSettingsAppContainer'], 10, 1);
         add_action('fluentform/form_settings_container_ff_polylang', [$this, 'renderSettingsAppContainer'], 10, 1);
     }
@@ -110,6 +111,17 @@ class FormSettingsController
         ];
 
         return $settingsMenus;
+    }
+
+    public function registerEnabledFormStringsForPolylang()
+    {
+        $page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
+
+        if ($page !== 'mlang_strings' || !$this->translations->canUsePolylangStrings()) {
+            return;
+        }
+
+        $this->translations->registerEnabledFormStrings();
     }
 
     public function enqueueSettingsAssets()
