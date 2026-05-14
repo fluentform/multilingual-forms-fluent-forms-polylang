@@ -34,7 +34,10 @@ class FormSettingsController
         add_action('fluentform/form_settings_menu', [$this, 'pushSettings'], 10, 2);
         add_filter('fluentform/form_fields_update', [$this, 'handleFormFieldUpdate'], 10, 2);
         add_action('fluentform/after_form_delete', [$this, 'removePolylangStrings'], 10, 1);
+        add_action('fluentform/loading_settings_assets', [$this, 'enqueueSettingsAssets'], 10, 1);
         add_action('admin_enqueue_scripts', [$this, 'enqueueSettingsAssets'], 99);
+        add_action('fluentform/form_settings_container_', [$this, 'renderSettingsAppContainer'], 10, 1);
+        add_action('fluentform/form_settings_container_ff_polylang', [$this, 'renderSettingsAppContainer'], 10, 1);
     }
 
     public function getPolylangSettings()
@@ -142,6 +145,15 @@ class FormSettingsController
                 'cancel'      => __('Cancel', 'multilingual-forms-fluent-forms-polylang'),
             ],
         ]);
+    }
+
+    public function renderSettingsAppContainer($formId)
+    {
+        if (!class_exists('\FluentForm\App\Modules\Registerer\Menu') || !function_exists('wpFluentForm')) {
+            return;
+        }
+
+        (new \FluentForm\App\Modules\Registerer\Menu(wpFluentForm()))->renderFormSettings($formId);
     }
 
     public function handleFormFieldUpdate($formFields, $formId)
