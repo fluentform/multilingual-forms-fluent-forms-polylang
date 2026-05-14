@@ -27,9 +27,12 @@ class RuntimeTranslationController
     public function init()
     {
         add_action('init', [$this, 'setupLanguageForAjax'], 5);
+        add_action('wp', [$this, 'setupLanguageForFrontendRequest'], 0);
 
         add_filter('fluentform/ajax_url', [$this, 'setAjaxLanguage'], 10, 1);
         add_filter('fluentform/rendering_form', [$this, 'translateRenderingForm'], 10, 1);
+        add_filter('fluentform/before_render_item', [$this, 'translateRenderingField'], 10, 2);
+        $this->registerFieldDataTranslationFilters();
         add_filter('fluentform/recaptcha_lang', [$this, 'setCaptchaLanguage'], 10, 1);
         add_filter('fluentform/hcaptcha_lang', [$this, 'setCaptchaLanguage'], 10, 1);
         add_filter('fluentform/turnstile_lang', [$this, 'setCaptchaLanguage'], 10, 1);
@@ -94,6 +97,20 @@ class RuntimeTranslationController
     public function translateRenderingForm($form)
     {
         return $this->translations->translateRenderingForm($form);
+    }
+
+    public function translateRenderingField($item, $form)
+    {
+        if (!$this->translations->canTranslateForm($form)) {
+            return $item;
+        }
+
+        return $this->translations->translateKnownStringsRecursive($item, '', $this->translations->getRuntimeLanguageFromRequest());
+    }
+
+    public function translateRenderingFieldData($data, $form)
+    {
+        return $this->translateRenderingField($data, $form);
     }
 
     public function setCaptchaLanguage($language)
@@ -324,6 +341,22 @@ class RuntimeTranslationController
 
         if ($language) {
             $this->translations->switchLanguage($language);
+            $this->translations->loadStringTranslations($language);
+        }
+    }
+
+    public function setupLanguageForFrontendRequest()
+    {
+        if (is_admin() || !$this->translations->isPolylangActive()) {
+            return;
+        }
+
+        $request = $this->app->request->all();
+        $language = $this->translations->extractLanguageFromRequest((array) $request);
+
+        if ($language) {
+            $this->translations->switchLanguage($language);
+            $this->translations->loadStringTranslations($language);
         }
     }
 
@@ -400,5 +433,52 @@ class RuntimeTranslationController
         }
 
         return null;
+    }
+
+    private function registerFieldDataTranslationFilters()
+    {
+        $fieldElements = [
+            'input_text',
+            'input_email',
+            'input_name',
+            'input_textarea',
+            'input_number',
+            'input_url',
+            'input_date',
+            'input_file',
+            'input_image',
+            'input_hidden',
+            'select',
+            'multi_select',
+            'input_radio',
+            'input_checkbox',
+            'address',
+            'section_break',
+            'custom_html',
+            'terms_and_condition',
+            'ratings',
+            'net_promoter_score',
+            'tabular_grid',
+            'repeater_field',
+            'rangeslider',
+            'gdpr_agreement',
+            'phone',
+            'country_list',
+            'payment_item',
+            'custom_payment_component',
+            'item_quantity_component',
+            'payment_method',
+            'coupon',
+            'subscription_payment_component',
+            'chained_select',
+            'form_step',
+            'recaptcha',
+            'hcaptcha',
+            'turnstile',
+        ];
+
+        foreach ($fieldElements as $fieldElement) {
+            add_filter('fluentform/rendering_field_data_' . $fieldElement, [$this, 'translateRenderingFieldData'], 10, 2);
+        }
     }
 }
