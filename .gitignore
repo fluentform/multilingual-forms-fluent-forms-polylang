@@ -4,5 +4,6 @@
 svn
 svn.php
 *.md
+!README.md
 .claude/
 /tests

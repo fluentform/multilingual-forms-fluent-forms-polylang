@@ -3,8 +3,8 @@
  * Plugin Name: Multilingual Forms for Fluent Forms with Polylang
  * Description: Add multilingual form support for Fluent Forms using Polylang.
  * Author: dhrupo, pyrobd
- * Plugin URI: https://github.com/dhrupo/fluent-forms-polylang
- * Author URI: https://github.com/dhrupo/
+ * Plugin URI: https://github.com/nkb-bd/multilingual-forms-fluent-forms-polylang
+ * Author URI: https://github.com/nkb-bd
  * Version: 1.0.0
  * License: GPLv2 or later
  * Text Domain: multilingual-forms-fluent-forms-polylang
