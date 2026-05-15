@@ -99,6 +99,9 @@ class FormTranslationService
         'geolocation_not_supported',
     ];
 
+    private $runtimeLanguage = null;
+    private $runtimeLanguageResolved = false;
+
     private $nonTranslatableKeys = [
         'id',
         'form_id',
@@ -301,7 +304,14 @@ class FormTranslationService
 
     public function getRuntimeLanguageFromRequest()
     {
-        return $this->extractLanguageFromRequest($_REQUEST) ?: $this->getCurrentPolylangLanguage();
+        if ($this->runtimeLanguageResolved) {
+            return $this->runtimeLanguage;
+        }
+
+        $this->runtimeLanguage = $this->extractLanguageFromRequest($_REQUEST) ?: $this->getCurrentPolylangLanguage();
+        $this->runtimeLanguageResolved = true;
+
+        return $this->runtimeLanguage;
     }
 
     public function loadStringTranslations($language)
