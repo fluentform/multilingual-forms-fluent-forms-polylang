@@ -1,5 +1,5 @@
 === Multilingual Forms for Fluent Forms with Polylang ===
-Contributors: dhrupo, pyrobd
+Contributors: pyrobd
 Tags: fluent forms, polylang, multilingual, translation, fluentform
 Requires at least: 6.0
 Tested up to: 6.7
