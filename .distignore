@@ -4,6 +4,8 @@
 .git
 .gitattributes
 .gitignore
-README.md
 .idea
+README.md
+scripts
 *.map
+*.zip

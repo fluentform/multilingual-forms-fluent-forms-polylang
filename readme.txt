@@ -2,13 +2,13 @@
 Contributors: pyrobd
 Tags: fluent forms, polylang, multilingual, translation, fluentform
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Add multilingual form support for Fluent Forms using Polylang. Translate form fields, messages, and notification emails from the Polylang strings page.
+Add multilingual form support for Fluent Forms using Polylang. Translate fields, messages, and notification emails from the strings page.
 
 == Description ==
 
