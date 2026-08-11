@@ -7,3 +7,4 @@ svn.php
 !README.md
 .claude/
 /tests
+*.zip

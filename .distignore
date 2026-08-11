@@ -5,6 +5,7 @@
 .gitattributes
 .gitignore
 .idea
+.claude
 README.md
 scripts
 *.map

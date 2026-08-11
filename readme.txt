@@ -1,8 +1,8 @@
-=== Multilingual Forms for Fluent Forms with Polylang ===
+=== Translate Fluent Forms with Polylang ===
 Contributors: pyrobd
 Tags: fluent forms, polylang, multilingual, translation, fluentform
 Requires at least: 6.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Add multilingual form support for Fluent Forms using Polylang. Translate fields,
 
 == Description ==
 
-Multilingual Forms for Fluent Forms with Polylang registers your Fluent Forms field labels, placeholders, help text, validation messages, confirmation messages, and notification emails as Polylang strings. Translate them from **Languages &rarr; Strings translations** and the right language is served automatically on the front end, in AJAX submissions, and in outgoing emails.
+Translate Fluent Forms with Polylang registers your Fluent Forms field labels, placeholders, help text, validation messages, confirmation messages, and notification emails as Polylang strings. Translate them from **Languages &rarr; Strings translations** and the right language is served automatically on the front end, in AJAX submissions, and in outgoing emails.
 
 The plugin does not patch or fork Fluent Forms. It integrates through Fluent Forms' own extension points: a custom *Polylang Translations* settings tab per form, Fluent Forms' admin AJAX wrapper, the `fluentform/*` filter set for runtime rendering and notifications, and standard WordPress `option_*` filters for global Fluent Forms settings.
 
@@ -35,11 +35,15 @@ The plugin does not patch or fork Fluent Forms. It integrates through Fluent For
 
 If either Fluent Forms or Polylang is missing or inactive, the plugin shows an admin notice with an install/activate link and does not boot.
 
+= Trademarks =
+
+Fluent Forms is a trademark of WPManageNinja LLC. Polylang is a trademark of WP SYNTEX. This plugin is an independent integration and is not affiliated with or endorsed by either project.
+
 == Installation ==
 
 1. Install and activate **Fluent Forms** and **Polylang** (or Polylang Pro).
-2. Upload the `multilingual-forms-fluent-forms-polylang` folder to `/wp-content/plugins/`, or install via **Plugins &rarr; Add New**.
-3. Activate **Multilingual Forms for Fluent Forms with Polylang** from the Plugins screen.
+2. Upload the `translate-fluent-forms-with-polylang` folder to `/wp-content/plugins/`, or install via **Plugins &rarr; Add New**.
+3. Activate **Translate Fluent Forms with Polylang** from the Plugins screen.
 4. Edit a form in Fluent Forms and open **Settings &rarr; Polylang Translations** to enable translations for that form.
 5. Visit **Languages &rarr; Strings translations** to translate the registered strings.
 

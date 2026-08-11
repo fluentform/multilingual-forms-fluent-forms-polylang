@@ -1,16 +1,16 @@
 <?php
+
 /**
- * Plugin Name: Multilingual Forms for Fluent Forms with Polylang
+ * Plugin Name: Translate Fluent Forms with Polylang
  * Description: Add multilingual form support for Fluent Forms using Polylang.
  * Author: pyrobd
  * Plugin URI: https://github.com/nkb-bd/multilingual-forms-fluent-forms-polylang
  * Author URI: https://github.com/nkb-bd
  * Version: 1.0.0
  * License: GPLv2 or later
- * Text Domain: multilingual-forms-fluent-forms-polylang
+ * Text Domain: translate-fluent-forms-with-polylang
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * Tested up to PHP: 8.3
  * Requires Plugins: fluentform, polylang
  */
 
@@ -29,19 +29,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * Copyright 2026 WPManageNinja LLC. All rights reserved.
+ * Copyright 2026 Lukman Nakib (pyrobd).
  */
 
-defined('ABSPATH') || exit;
+defined('ABSPATH') || exit();
 define('MFFFPLL_DIR', plugin_dir_path(__FILE__));
 define('MFFFPLL_URL', plugins_url('', __FILE__));
 defined('MFFFPLL_VERSION') or define('MFFFPLL_VERSION', '1.0.0');
 
 class MultilingualFormsFluentFormsPolylang
 {
-    const FLUENTFORM_BASENAME    = 'fluentform/fluentform.php';
-    const POLYLANG_BASENAME      = 'polylang/polylang.php';
-    const POLYLANG_PRO_BASENAME  = 'polylang-pro/polylang.php';
+    const FLUENTFORM_BASENAME = 'fluentform/fluentform.php';
+    const POLYLANG_BASENAME = 'polylang/polylang.php';
+    const POLYLANG_PRO_BASENAME = 'polylang-pro/polylang.php';
 
     private static $activePlugins;
 
@@ -97,14 +97,15 @@ class MultilingualFormsFluentFormsPolylang
             self::setActivePlugins();
         }
 
-        return self::isPluginInActiveList(self::POLYLANG_BASENAME)
-            || self::isPluginInActiveList(self::POLYLANG_PRO_BASENAME);
+        return (
+            self::isPluginInActiveList(self::POLYLANG_BASENAME)
+            || self::isPluginInActiveList(self::POLYLANG_PRO_BASENAME)
+        );
     }
 
     private static function isPluginInActiveList($basename)
     {
-        return in_array($basename, self::$activePlugins, true)
-            || array_key_exists($basename, self::$activePlugins);
+        return in_array($basename, self::$activePlugins, true) || array_key_exists($basename, self::$activePlugins);
     }
 
     private static function setActivePlugins()
@@ -114,7 +115,7 @@ class MultilingualFormsFluentFormsPolylang
         if (is_multisite()) {
             self::$activePlugins = array_merge(
                 self::$activePlugins,
-                get_site_option('active_sitewide_plugins', array())
+                get_site_option('active_sitewide_plugins', array()),
             );
         }
     }
@@ -155,8 +156,8 @@ class MultilingualFormsFluentFormsPolylang
                 'Fluent Forms Polylang Add-On Requires %s, <b><a href="%s">%s</a></b>',
                 esc_html($pluginLabel),
                 esc_url($info->url),
-                esc_html($linkText)
-            ))
+                esc_html($linkText),
+            )),
         );
     }
 
@@ -164,21 +165,21 @@ class MultilingualFormsFluentFormsPolylang
     {
         $activation = (object) [
             'action' => 'install',
-            'url'    => '',
+            'url' => '',
         ];
 
         $allPlugins = get_plugins();
 
         if (isset($allPlugins[$basename])) {
             $activation->action = 'activate';
-            $activation->url    = wp_nonce_url(
+            $activation->url = wp_nonce_url(
                 self_admin_url('plugins.php?action=activate&plugin=' . $basename),
-                'activate-plugin_' . $basename
+                'activate-plugin_' . $basename,
             );
         } else {
             $activation->url = wp_nonce_url(
                 self_admin_url('update.php?action=install-plugin&plugin=' . $slug),
-                'install-plugin_' . $slug
+                'install-plugin_' . $slug,
             );
         }
 
@@ -187,5 +188,5 @@ class MultilingualFormsFluentFormsPolylang
 }
 
 add_action('fluentform/loaded', function () {
-    (new MultilingualFormsFluentFormsPolylang())->boot();
+    new MultilingualFormsFluentFormsPolylang()->boot();
 });

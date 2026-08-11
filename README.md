@@ -1,4 +1,4 @@
-# Multilingual Forms for Fluent Forms with Polylang
+# Translate Fluent Forms with Polylang
 
 > Translate [Fluent Forms](https://wordpress.org/plugins/fluentform/) using [Polylang](https://wordpress.org/plugins/polylang/) — field labels, validation messages, confirmation messages, and notification emails — all from Polylang's *Strings translations* page.
 
@@ -17,7 +17,7 @@ The plugin gates its own boot on both dependencies and emits an admin notice wit
 
 1. Install and activate **Fluent Forms** and **Polylang** (or Polylang Pro).
 2. Clone this repo or upload the `multilingual-forms-fluent-forms-polylang` folder to `wp-content/plugins/`.
-3. Activate **Multilingual Forms for Fluent Forms with Polylang** from the Plugins screen.
+3. Activate **Translate Fluent Forms with Polylang** from the Plugins screen.
 
 ## Usage
 
@@ -30,7 +30,7 @@ To stop translating a form, hit **Reset Polylang Translation** on the same tab.
 ## Project layout
 
 ```
-multilingual-forms-for-fluent-forms-with-polylang.php  # bootstrap, dependency gating, admin notices
+translate-fluent-forms-with-polylang.php  # bootstrap, dependency gating, admin notices
 src/
   Controllers/
     SettingsController.php             # wires up the per-form controllers
