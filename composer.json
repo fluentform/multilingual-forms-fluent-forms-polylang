@@ -1,0 +1,20 @@
+{
+    "name": "fluentform/multilingual-forms-fluent-forms-polylang",
+    "description": "Translate Fluent Forms using Polylang — field labels, validation messages, confirmation messages, and notification emails — all from Polylang's Strings translations page.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "^2.0"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Lukman Nakib"
+        }
+    ],
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
