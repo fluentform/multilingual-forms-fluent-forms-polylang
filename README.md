@@ -60,7 +60,7 @@ assets/admin/
 
 ## Contributing
 
-Issues and PRs welcome at <https://github.com/nkb-bd/multilingual-forms-fluent-forms-polylang>.
+Issues and PRs welcome at <https://github.com/fluentform/multilingual-forms-fluent-forms-polylang>.
 
 ## License
 
