@@ -188,5 +188,5 @@ class MultilingualFormsFluentFormsPolylang
 }
 
 add_action('fluentform/loaded', function () {
-    new MultilingualFormsFluentFormsPolylang()->boot();
+    (new MultilingualFormsFluentFormsPolylang())->boot();
 });
