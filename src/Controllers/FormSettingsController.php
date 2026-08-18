@@ -45,7 +45,7 @@ class FormSettingsController
     public function getPolylangSettings()
     {
         if (!$this->canManageFluentForms()) {
-            wp_send_json_error(__('You do not have permission to manage this form.', 'translate-fluent-forms-with-polylang'), 403);
+            wp_send_json_error(__('You do not have permission to manage this form.', 'multilingual-forms-for-fluent-forms-with-polylang'), 403);
         }
 
         $request = $this->app->request->get();
@@ -57,7 +57,7 @@ class FormSettingsController
     public function storePolylangSettings()
     {
         if (!$this->canManageFluentForms()) {
-            wp_send_json_error(__('You do not have permission to manage this form.', 'translate-fluent-forms-with-polylang'), 403);
+            wp_send_json_error(__('You do not have permission to manage this form.', 'multilingual-forms-for-fluent-forms-with-polylang'), 403);
         }
 
         $request = $this->app->request->get();
@@ -65,36 +65,36 @@ class FormSettingsController
         $isEnabled = ArrayHelper::get($request, 'is_ff_polylang_enabled', false) === 'true';
 
         if (!$formId) {
-            wp_send_json_error(__('Invalid form ID.', 'translate-fluent-forms-with-polylang'), 400);
+            wp_send_json_error(__('Invalid form ID.', 'multilingual-forms-for-fluent-forms-with-polylang'), 400);
         }
 
         $this->translations->setFormEnabled($formId, $isEnabled);
 
         if (!$isEnabled) {
-            wp_send_json_success(__('Translation is disabled for this form.', 'translate-fluent-forms-with-polylang'));
+            wp_send_json_success(__('Translation is disabled for this form.', 'multilingual-forms-for-fluent-forms-with-polylang'));
         }
 
         $this->translations->registerFormStrings($formId);
 
-        wp_send_json_success(__('Translation is enabled for this form.', 'translate-fluent-forms-with-polylang'));
+        wp_send_json_success(__('Translation is enabled for this form.', 'multilingual-forms-for-fluent-forms-with-polylang'));
     }
 
     public function removePolylangSettings()
     {
         if (!$this->canManageFluentForms()) {
-            wp_send_json_error(__('You do not have permission to manage this form.', 'translate-fluent-forms-with-polylang'), 403);
+            wp_send_json_error(__('You do not have permission to manage this form.', 'multilingual-forms-for-fluent-forms-with-polylang'), 403);
         }
 
         $request = $this->app->request->get();
         $formId = absint(ArrayHelper::get($request, 'form_id'));
 
         if (!$formId) {
-            wp_send_json_error(__('Invalid form ID.', 'translate-fluent-forms-with-polylang'), 400);
+            wp_send_json_error(__('Invalid form ID.', 'multilingual-forms-for-fluent-forms-with-polylang'), 400);
         }
 
         $this->removePolylangStrings($formId);
 
-        wp_send_json_success(__('Translations are disabled for this form.', 'translate-fluent-forms-with-polylang'));
+        wp_send_json_success(__('Translations are disabled for this form.', 'multilingual-forms-for-fluent-forms-with-polylang'));
     }
 
     public function pushSettings($settingsMenus, $formId)
@@ -104,7 +104,7 @@ class FormSettingsController
         }
 
         $settingsMenus['ff_polylang'] = [
-            'title' => __('Polylang Translations', 'translate-fluent-forms-with-polylang'),
+            'title' => __('Polylang Translations', 'multilingual-forms-for-fluent-forms-with-polylang'),
             'slug'  => 'ff_polylang',
             'hash'  => 'ff_polylang',
             'route' => '/custom-settings-component/ff_polylang',
@@ -172,16 +172,16 @@ class FormSettingsController
             'storeAction'  => 'fluentform_store_polylang_settings',
             'deleteAction' => 'fluentform_delete_polylang_settings',
             'i18n'         => [
-                'title'       => __('Translations using Polylang', 'translate-fluent-forms-with-polylang'),
-                'description' => __('Enable native Polylang string translations for this Fluent Form.', 'translate-fluent-forms-with-polylang'),
-                'enable'      => __('Enable translation for this form', 'translate-fluent-forms-with-polylang'),
-                'save'        => __('Save Settings', 'translate-fluent-forms-with-polylang'),
-                'saving'      => __('Saving Settings', 'translate-fluent-forms-with-polylang'),
-                'reset'       => __('Reset Polylang Translation', 'translate-fluent-forms-with-polylang'),
-                'resetting'   => __('Resetting Polylang Translation', 'translate-fluent-forms-with-polylang'),
-                'warning'     => __('Warning', 'translate-fluent-forms-with-polylang'),
-                'confirm'     => __('This will disable Polylang translation for this form. Continue?', 'translate-fluent-forms-with-polylang'),
-                'cancel'      => __('Cancel', 'translate-fluent-forms-with-polylang'),
+                'title'       => __('Translations using Polylang', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'description' => __('Enable native Polylang string translations for this Fluent Form.', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'enable'      => __('Enable translation for this form', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'save'        => __('Save Settings', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'saving'      => __('Saving Settings', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'reset'       => __('Reset Polylang Translation', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'resetting'   => __('Resetting Polylang Translation', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'warning'     => __('Warning', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'confirm'     => __('This will disable Polylang translation for this form. Continue?', 'multilingual-forms-for-fluent-forms-with-polylang'),
+                'cancel'      => __('Cancel', 'multilingual-forms-for-fluent-forms-with-polylang'),
             ],
         ];
     }
